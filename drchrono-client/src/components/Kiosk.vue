@@ -23,8 +23,8 @@
 
 <script>
 import chrono from '../api/chrono'
-import Doctors from '@/components/doctors'
-import Patient from '@/components/patient'
+import Doctors from '@/components/kiosk/doctors'
+import Patient from '@/components/kiosk/patient'
 export default {
   name: 'kiosk',
   components: {
@@ -37,7 +37,8 @@ export default {
       selectedDoctor: undefined,
       alert: false,
       alertMsg: '',
-      alertType: 'error'
+      alertType: 'error',
+      loggedIn: chrono.loggedIn
     }
   },
   mounted() {
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
     getDoctors() {
-      return chrono.doctors().then((response) => {
+      chrono.doctors().then((response) => {
         this.doctors = response
       })
     },

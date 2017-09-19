@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+# TODO: Remove CORS for production + fix redirect port + set client port
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -56,7 +58,7 @@ MIDDLEWARE_CLASSES = (
 
 AUTHENTICATION_BACKENDS = (
     'social_auth_drchrono.backends.drchronoOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend'
 )
 
 ROOT_URLCONF = 'drchrono.urls'
@@ -112,5 +114,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = False
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ('localhost:8080',)
+
+SOCIAL_AUTH_DRCHRONO_KEY = "APM9HLMdhVoLNR9TjTV26b3aFW8MiN9W8VK1kObw"
+SOCIAL_AUTH_DRCHRONO_SECRET = "yGbShTPLqNhLsTdYq5sjbZKAFN7WXTV7PXefP32dT8b9W2BDvSdZWxI5UN44Ee9FcudVpHqDevNF1kaF1qEeL2B1hMpjCBzlyErLyDOmQngtfwqlMf5F5eX6VOG4XowR"
+LOGIN_REDIRECT_URL = "http://localhost:8000/"

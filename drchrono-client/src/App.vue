@@ -1,11 +1,12 @@
 <template>
   <v-app>
-    <v-toolbar>
+    <v-toolbar dark class="primary">
       <v-toolbar-title>DrChrono</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn flat>Doctor Sign-in</v-btn>
+        <v-btn to="/appointments/" flat>Doctors</v-btn>
+        <v-btn to="/kiosk/" flat>Kiosk</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>

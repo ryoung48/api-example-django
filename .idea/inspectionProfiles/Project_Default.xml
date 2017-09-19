@@ -8,6 +8,8 @@
           <option value="drchrono.models.Appointment.objects" />
           <option value="drchrono.models.Patient.id" />
           <option value="drchrono.models.Patient.objects" />
+          <option value="drchrono.models.Appointment.get_status_display" />
+          <option value="drchrono.models.Appointment.id" />
         </list>
       </option>
     </inspection_tool>

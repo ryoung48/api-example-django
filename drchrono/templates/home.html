@@ -1,0 +1,5 @@
+{% block content %}
+  <h2>Homepage</h2>
+  <p>Hello {{ user.username }}!</p>
+<a href="{% url 'social:begin' 'drchrono' %}">Login with DrChrono</a><br>
+{% endblock %}

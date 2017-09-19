@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import chrono from '../api/chrono'
+import chrono from '../../api/chrono'
 export default {
   name: 'patient',
   props: {

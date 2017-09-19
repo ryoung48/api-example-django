@@ -48,7 +48,7 @@ export default {
 
 <style scoped>
 .upper {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
 .lower {
     text-transform: lowercase;
