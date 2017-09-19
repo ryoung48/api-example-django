@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Kiosk from '@/components/Kiosk'
-import Login from '@/components/doctor/Login'
-import Appointments from '@/components/doctor/Appointments'
+import DoctorLogin from '@/components/doctor/DoctorLogin'
+import DoctorManager from '@/components/DoctorManager'
 
 Vue.use(Router)
 
@@ -16,12 +16,12 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: DoctorLogin
     },
     {
-      path: '/appointments',
-      name: 'Appointments',
-      component: Appointments
+      path: '/manager',
+      name: 'Manager',
+      component: DoctorManager
     },
     {
       path: '*',

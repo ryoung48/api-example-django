@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.utils import timezone
 
@@ -15,6 +16,7 @@ class Doctor(models.Model):
 
     def update_status(self, status):
         self.status = status
+        self.status_start = timezone.now() - datetime.timedelta(hours=4)
         self.save()
 
     def jsonify(self):
@@ -79,12 +81,12 @@ class Appointment(models.Model):
 
     def arrived(self):
         self.status = "A"
-        self.arrival_date = timezone.now()
+        self.arrival_date = timezone.now() - datetime.timedelta(hours=4)
         self.save()
 
     def visit(self):
         self.status = "F"
-        self.wait_time = (timezone.now() - self.arrival_date).seconds
+        self.wait_time = (timezone.now() - datetime.timedelta(hours=4) - self.arrival_date).seconds
         self.save()
 
     def jsonify(self):

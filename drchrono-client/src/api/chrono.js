@@ -1,15 +1,16 @@
 import axios from 'axios'
 import Cookie from 'js-cookie'
 
-const host = '/'
+const host = 'http://localhost:8000/'
 
 const login = host + 'login/drchrono/'
 
 axios.defaults.withCredentials = true
 
 const loggedIn = () => {
-    console.log(Cookie.get())
-    return Cookie.get('sessionid')
+    return axios.get(`${host}auth-check/`).then((result) => {
+        return result.data.user !== 'AnonymousUser'
+    })
 }
 
 const buildPost = (params, endpoint) => {

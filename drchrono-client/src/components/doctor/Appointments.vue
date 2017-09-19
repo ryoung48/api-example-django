@@ -53,6 +53,9 @@
             </v-list-tile>
           </v-list>
         </v-card>
+        <v-alert success :value="alert" transition="scale-transition">
+          {{alertMsg}} successful!
+        </v-alert>
       </v-flex>
     </v-layout>
   </div>
@@ -70,7 +73,9 @@ export default {
     return {
       doctors: [],
       doctor: undefined,
-      appointments: { arrived: [], confirmed: [], finished: [], avg_wait: -1 }
+      appointments: { arrived: [], confirmed: [], finished: [], avg_wait: -1 },
+      alert: false,
+      alertMsg: ''
     }
   },
   mounted() {
@@ -87,7 +92,7 @@ export default {
       return (this.doctor && this.doctor.status_code === 'O') ? 'I' : 'O'
     },
     statusText: function() {
-      return (this.doctor && this.doctor.status_code === 'O') ? 'Login' : 'Logout'
+      return (this.doctor && this.doctor.status_code === 'O') ? 'Check-in' : 'Check-out'
     },
     arrived: function() {
       return this.appointments.arrived && this.appointments.arrived.length > 0
@@ -109,24 +114,30 @@ export default {
       chrono.doctors().then((response) => {
         this.doctors = [...response.checked_in, ...response.checked_out]
         if (!this.doctor) {
-           let pick = Math.floor(Math.random() * this.doctors.length)
-           this.doctor = this.doctors[pick]
-           this.getAppointments()
+          let pick = Math.floor(Math.random() * this.doctors.length)
+          this.doctor = this.doctors[pick]
+          this.getAppointments()
         }
       })
     },
     visit(id) {
-      chrono.visit({appointment_id: id}).then((response) => {
+      chrono.visit({ appointment_id: id }).then((response) => {
         this.getAppointments()
       })
     },
     updateStatus() {
+      this.alertMsg = this.statusText
       chrono.updateDoctorStatus({
         doctor_id: this.doctor.id,
         status: this.toggleStatus
-        }).then((response) => {
-          this.doctor.status = response.status
-          this.doctor.status_code = response.status_code
+      }).then((response) => {
+        this.doctor.status = response.status
+        this.doctor.status_code = response.status_code
+        this.alert = true
+        setTimeout(() => {
+          this.alert = false
+          this.alertMsg = ''
+        }, 1000 * 2)
       })
     }
   },

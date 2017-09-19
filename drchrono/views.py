@@ -19,47 +19,25 @@ def api_request(request, endpoint):
     return response.json()
 
 
-@login_required(login_url='/')
-def secure(request):
-    social = request.user.social_auth.get(provider='drchrono')
-    response = requests.get('https://drchrono.com/api/doctors', headers={
-        'Authorization': 'Bearer %s' % social.extra_data['access_token'],
+def logged_in(request):
+    return JsonResponse({
+        "user": str(request.user)
     })
-    return JsonResponse(response.json(), safe=False)
-
-
-def home(request):
-    print(request.user)
-    return render(request, 'home.html')
 
 
 @login_required(login_url='/')
 def doctors_api(request):
-    doctor_list = api_request(request, "doctors")
-    return JsonResponse({
-        "checked_in": doctor_list["results"],
-        "checked_out": []
-    })
+    return JsonResponse(api_request(request, "doctors"))
 
 
 @login_required(login_url='/')
 def patients_api(request):
-    patients_list = api_request(request, "patients")
-    print(patients_list)
-    return JsonResponse({
-        "checked_in": patients_list["results"],
-        "checked_out": []
-    })
+    return JsonResponse(api_request(request, "patients"))
 
 
 @login_required(login_url='/')
 def appointments_api(request):
-    appointments_list = api_request(request, "appointments?since=2016-09-17 02:03:16")
-    print(appointments_list)
-    return JsonResponse({
-        "checked_in": appointments_list["results"],
-        "checked_out": []
-    })
+    return JsonResponse(api_request(request, "appointments?since=2016-09-17 02:03:16"))
 
 
 def doctors(request):
@@ -98,7 +76,7 @@ def visit(request):
     return JsonResponse({})
 
 
-def verify_identity(request):
+def verify_patient_identity(request):
     form = json.loads(request.body)
     doctor = Doctor.objects.get(pk=form['doctor_id'])
     appointments = Appointment.objects.filter(doctor=doctor)
@@ -111,7 +89,7 @@ def verify_identity(request):
     })
 
 
-def finalize_checkin(request):
+def finalize_patient_checkin(request):
     form = json.loads(request.body)
     appointment = Appointment.objects.get(pk=form['appointment'])
     appointment.patient.set_demographics(form)

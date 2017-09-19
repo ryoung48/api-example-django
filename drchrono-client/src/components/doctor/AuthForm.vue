@@ -21,32 +21,11 @@
 <script>
 import chrono from '../../api/chrono'
 export default {
-    name: 'login',
+    name: 'authForm',
     data() {
         return {
-            first: '',
-            last: '',
-            login: chrono.login
+            'login': chrono.login
         }
     }
 }
 </script>
-
-<style scoped>
-.generationParams {
-    margin-left: 15px;
-}
-
-.top {
-    margin-top: 15px;
-}
-
-.bottom {
-    padding-bottom: 10px;
-    margin-left: 5px;
-}
-
-.space {
-    margin-right: 15px;
-}
-</style>
