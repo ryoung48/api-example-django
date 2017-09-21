@@ -1,12 +1,10 @@
 <template>
   <v-app>
-    <v-toolbar dark class="primary">
-      <v-toolbar-title>DrChrono</v-toolbar-title>
+    <v-toolbar dark>
+      <v-toolbar-title>drchrono</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-toolbar-side-icon class="hidden-md-and-up"></v-toolbar-side-icon>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn to="/manager/" flat>Doctors</v-btn>
-        <v-btn to="/kiosk/" flat>Kiosk</v-btn>
+        <v-btn v-for="(link, title, index) in dynLinks" :key="index" :to="link" flat>{{title}}</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <main>
@@ -20,7 +18,24 @@
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      links: {
+        Kiosk: 'kiosk/'
+      }
+    }
+  },
+  computed: {
+    dynLinks: function() {
+      return {
+        ...this.links,
+        ...(
+          (!this.$store.getters.locked) ? {Doctors: 'doctors/'} : {}
+        )
+      }
+    }
+  }
 }
 </script>
 

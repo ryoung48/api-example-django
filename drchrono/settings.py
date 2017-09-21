@@ -100,19 +100,21 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'PT'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+proxy = 'http://localhost:8000'
+LOGIN_URL = proxy + '/#/'
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_CREDENTIALS = True
@@ -120,4 +122,4 @@ CORS_ORIGIN_WHITELIST = ('localhost:8080',)
 
 SOCIAL_AUTH_DRCHRONO_KEY = "APM9HLMdhVoLNR9TjTV26b3aFW8MiN9W8VK1kObw"
 SOCIAL_AUTH_DRCHRONO_SECRET = "yGbShTPLqNhLsTdYq5sjbZKAFN7WXTV7PXefP32dT8b9W2BDvSdZWxI5UN44Ee9FcudVpHqDevNF1kaF1qEeL2B1hMpjCBzlyErLyDOmQngtfwqlMf5F5eX6VOG4XowR"
-LOGIN_REDIRECT_URL = "http://localhost:8080/#/manager/"
+LOGIN_REDIRECT_URL = "http://localhost:8000/build-kiosk/"

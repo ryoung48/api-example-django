@@ -1,31 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Kiosk from '@/components/Kiosk'
-import DoctorLogin from '@/components/doctor/DoctorLogin'
-import DoctorManager from '@/components/DoctorManager'
+import Gated from '@/components/gated/Gated'
+import Manager from '@/components/manager'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
+      path: '/gate',
+      name: 'Gate',
+      component: Gated
+    },
+    {
       path: '/kiosk',
       name: 'Kiosk',
       component: Kiosk
     },
     {
-      path: '/login',
-      name: 'Login',
-      component: DoctorLogin
-    },
-    {
-      path: '/manager',
+      path: '/doctors',
       name: 'Manager',
-      component: DoctorManager
+      component: Manager
     },
     {
       path: '*',
-      redirect: '/kiosk'
+      redirect: '/gate'
     }
   ]
 })

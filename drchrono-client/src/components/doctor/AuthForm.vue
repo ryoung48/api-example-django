@@ -10,7 +10,7 @@
                 </v-card-title>
                 <v-layout row class="bottom">
                     <v-flex class="space">
-                        <v-btn secondary large :href="login">Login with DrChrono</v-btn>
+                        <v-btn secondary large :href="login">Login with drchrono</v-btn>
                     </v-flex>
                 </v-layout>
             </v-card>

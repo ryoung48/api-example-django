@@ -6,13 +6,14 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap>
-      <v-flex xs4 offset-xs4>
-        <v-card>
+      <v-flex xs6 offset-xs3>
+        <v-card v-if="!doctorUnknown">
           <doctors :doctors="doctors.checked_in" title="Doctors Available" :action="selectDoctor"></doctors>
           <v-divider></v-divider>
           <doctors v-if="!selectedDoctor" :doctors="doctors.checked_out" title="Doctors Unavailable" :disabled="true"></doctors>
+          <v-btn v-if="!selectedDoctor" secondary @click="setUnknown()">I don't know who my doctor is</v-btn>
         </v-card>
-        <patient v-if="selectedDoctor" :doctor="selectedDoctor" :action="sendAlert" :close="unSelectDoctor"></patient>
+        <patient v-if="selectedDoctor || doctorUnknown" :doctor="selectedDoctor" :action="sendAlert" :close="unSelectDoctor"></patient>
         <v-alert :success="alertType === 'success'" :error="alertType === 'error'" :info="alertType === 'info'" :value="alert" transition="scale-transition">
           {{alertMsg}}
         </v-alert>
@@ -35,10 +36,10 @@ export default {
     return {
       doctors: { checked_in: [], checked_out: [] },
       selectedDoctor: undefined,
+      doctorUnknown: false,
       alert: false,
       alertMsg: '',
-      alertType: 'error',
-      loggedIn: chrono.loggedIn
+      alertType: 'error'
     }
   },
   mounted() {
@@ -56,6 +57,10 @@ export default {
     },
     unSelectDoctor() {
       this.selectedDoctor = undefined
+      this.doctorUnknown = false
+    },
+    setUnknown() {
+      this.doctorUnknown = true
     },
     sendAlert(type, msg) {
       this.alertType = type

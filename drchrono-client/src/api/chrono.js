@@ -4,6 +4,7 @@ import Cookie from 'js-cookie'
 const host = 'http://localhost:8000/'
 
 const login = host + 'login/drchrono/'
+const logout = host + 'logout/'
 
 axios.defaults.withCredentials = true
 
@@ -48,8 +49,8 @@ const verifyAppointment = (params) => {
     })
 }
 
-const getAppointments = (id) => {
-    return axios.get(`${host}appointment/${id}/`).then((result) => {
+const getAppointments = () => {
+    return axios.get(`${host}appointment/`).then((result) => {
         return result.data
     })
 }
@@ -93,6 +94,7 @@ export default {
     loggedIn,
     visit,
     host,
-    login
+    login,
+    logout
 }
 

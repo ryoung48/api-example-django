@@ -1,32 +1,32 @@
 <template>
   <div>
       <appointments v-if="authorized"></appointments>
-      <doctor-login v-if="!authorized"></doctor-login>
+      <auth-form v-if="!authorized"></auth-form>
   </div>
 </template>
 
 <script>
 import chrono from '../api/chrono'
 import Appointments from '@/components/doctor/appointments'
-import DoctorLogin from '@/components/doctor/authForm'
+import AuthForm from '@/components/doctor/authForm'
 export default {
-  name: 'doctorManager',
+  name: 'manager',
   components: {
     'appointments': Appointments,
-    'doctor-login': DoctorLogin
-  },
-  data() {
-    return {
-      authorized: false
-    }
+    'auth-form': AuthForm
   },
   mounted() {
     this.checkAuth()
   },
+  computed: {
+    authorized: function() {
+      return this.$store.getters.authorized
+    }
+  },
   methods: {
     checkAuth() {
       chrono.loggedIn().then((response) => {
-        this.authorized = response
+        this.$store.commit('setAuthorized', response)
       })
     }
   }
